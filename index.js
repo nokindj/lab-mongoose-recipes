@@ -21,7 +21,63 @@ mongoose
   })
   .then(() => {
     // Run your code here, after you have insured that the connection was made
+    return Recipe.insertMany(data)
   })
+  .then((manyRecipes) => {
+    console.log('Many recipes created', manyRecipes);
+    return Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration:100}, {new: true})
+  })
+  .then(updatedRigatoni => {
+    console.log(`Updated the Rigatoni alla Genovese ${updatedRigatoni}`);
+    return Recipe.deleteOne({title: "Carrot Cake"})
+  })
+  .then((resultFromDeleteOne) => {
+    console.log(`Carrot Cake got deleted ${resultFromDeleteOne}`)
+    return mongoose.connection.close();
+  }) 
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+
+  /*
+  Recipe.create({
+    title: "Ramen",
+    cuisine: "Asian"
+  }).then((createdRecipe) => {
+    console.log("Recipe created", createdRecipe);
+  }).catch((err) => {
+    console.log("error occurred", err)
+  });
+
+
+
+
+  .then((createdManyRecipes) => {
+  console.log("Many recipes created", createdManyRecipes);
+
+  .then((updatedRigatoni) => {
+    console.log(`Updated the Rigatoni alla Genovese ${updatedRigatoni}`);
+
+    Recipe.deleteOne({title: "Carrot Cake"})
+    .then((resultFromDeleteOne) => {
+        console.log(`Carrot Cake got deleted ${resultFromDeleteOne}`)
+        mongoose.connection.close();
+
+    })
+  })
+})
+  .catch((err) => {
+    console.log("error", err);
+  })
+ 
+*/
+
+
+
+ 
+
+
+
+
+
+
